@@ -1,0 +1,37 @@
+name: Build ytguid
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y cmake g++ libboost-dev libasio-dev upx
+
+      - name: Configure & Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_EXE_LINKER_FLAGS="-static"
+          cmake --build .
+
+      - name: Compress binary (optional)
+        run: |
+          upx -9 build/ytguid || echo "UPX сжатие не выполнено"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ytguid
+          path: build/ytguid
+
