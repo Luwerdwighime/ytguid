@@ -5,4 +5,5 @@ cd build
 cmake ..
 make -j8
 cp -f ytguid ..
+upx ../ytguid
 

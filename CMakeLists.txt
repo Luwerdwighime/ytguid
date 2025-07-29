@@ -12,12 +12,10 @@ include_directories(
 add_definitions(-DASIO_STANDALONE)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Os")
+set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 file(GLOB_RECURSE SOURCES
   src/*.cpp
 )
 add_executable(ytguid ${SOURCES})
-
-#find_package(Boost COMPONENTS system)
-#target_link_libraries(ytguid PRIVATE Boost)
 
